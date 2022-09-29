@@ -4,6 +4,6 @@ A Userscript for [MouseHunt](https://mousehuntgame.com) that makes the travel pa
 
 ## Installation
 
-Install via [GreasyFork](https://greasyfork.org/en/scripts/449491-mousehunt-no-sidebar).
+Install via [GreasyFork](https://greasyfork.org/en/scripts/452232-mousehunt-travel-tweaks).
 
 *You must have [ViolentMonkey](https://violentmonkey.github.io/) or another userscript manager installed.*
