@@ -87,7 +87,7 @@
 		}
 
 		// eslint-disable-next-line no-undef
-		app.pages.TravelPage.showEnvironment('town_of_gnawnia', false )
+		app.pages.TravelPage.showEnvironment('town_of_gnawnia', false);
 
 		// eslint-disable-next-line no-undef
 		app.pages.TravelPage.zoomOut();
