@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
 // @version      1.0.0
-// @description
+// @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
 // @namespace    bradp
