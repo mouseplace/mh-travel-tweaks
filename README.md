@@ -1,4 +1,4 @@
-# mh-travel-tweaks
+# 🐭️ Mousehunt - Travel Tweaks
 
 A Userscript for [MouseHunt](https://mousehuntgame.com) that makes the travel page a bit better.
 
