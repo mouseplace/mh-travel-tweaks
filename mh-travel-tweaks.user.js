@@ -60,8 +60,7 @@
 				location.addEventListener('mouseover', () => {
 					location.classList.add('highlight');
 				});
-			});
-			locations.forEach((location) => {
+
 				location.addEventListener('mouseout', () => {
 					setTimeout(() => {
 						location.classList.remove('highlight');
