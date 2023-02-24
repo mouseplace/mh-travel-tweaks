@@ -603,7 +603,6 @@
 	}
 
 	#mh-simple-travel-page .travelPage-regionMenu-environmentLink.active {
-		background-color: transparent;
 		color: #4e6081;
 	}
 
