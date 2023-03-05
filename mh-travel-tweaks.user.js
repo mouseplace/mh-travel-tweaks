@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.2.0
+// @version      2.2.1
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -9,7 +9,7 @@
 // @icon         https://brrad.com/mouse.png
 // @grant        none
 // @run-at       document-end
-// @require      https://cdn.jsdelivr.net/gh/mouseplace/mousehunt-utils/mousehunt-utils.js
+// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.2.0/mousehunt-utils.js
 // ==/UserScript==
 
 ((function () {
