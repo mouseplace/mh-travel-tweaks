@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.2.1
+// @version      2.2.2
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -9,7 +9,7 @@
 // @icon         https://i.mouse.rip/mouse.png
 // @grant        none
 // @run-at       document-end
-// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.2.0/mousehunt-utils.js
+// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.5.2/mousehunt-utils.js
 // ==/UserScript==
 
 ((function () {
@@ -125,11 +125,11 @@
     page.classList.add('simple-travel');
     page.setAttribute('data-tab', 'simple-travel');
 
-    if (undefined === getSetting('simple-travel')) {
+    if ('not-set' === getSetting('simple-travel', 'not-set')) {
       const settingTip = document.createElement('div');
       settingTip.classList.add('travelPage-map-prefix');
       settingTip.classList.add('simple-travel-tip');
-      settingTip.innerHTML = 'You can set this as the default travel tab in your <a href="https://www.mousehuntgame.com/preferences.php?tab=game_settings"> Game Settings</a>.';
+      settingTip.innerHTML = 'You can set this as the default travel tab in your <a href="https://www.mousehuntgame.com/preferences.php?tab=userscript-settings"> Game Settings</a>.';
       page.appendChild(settingTip);
     }
 
@@ -218,7 +218,7 @@
    * Add the settings for Simple Travel.
    */
   const addSimpleTravelSetting = () => {
-    addSetting('Default to simple travel', 'simple-travel', false, 'Use the simple travel page by default.');
+    addSetting('Default to simple travel', 'simple-travel', false, 'Use the simple travel page by default.', {}, addSettingsTab());
   };
 
   onPageChange({ change: expandTravelRegions });
@@ -243,34 +243,34 @@
   }
 
   .travelPage-regionMenu {
-    overflow: scroll;
     width: 22%;
+    overflow: scroll;
   }
 
   .travelPage-map-environment-detailContainer {
-    width: 78%;
     left: 22%;
+    width: 78%;
   }
 
   .travelPage-regionMenu-environmentLink.active {
+    color: #000;
     background: #a4cafc;
-    color: #000000;
   }
 
   .travelPage-regionMenu-stats {
-    background-color: #d8d8d8;
     color: #4d4d4d;
+    background-color: #d8d8d8;
   }
 
   .travelPage-regionMenu-numFriends {
-    background: none;
     padding: 0;
+    background: none;
   }
 
   .travelPage-mapContainer.full {
     height: auto;
-    max-height: 900px;
     min-height: 800px;
+    max-height: 900px;
     border: none;
   }
 
@@ -279,19 +279,20 @@
   }
 
   .travelPage-map-zoomContainer {
-    -webkit-transform: scale(1.5);
-            transform: scale(1.5);
     bottom: 300px;
+    transform: scale(1.5);
   }
 
   .travelPage-map-image-environment-name {
+    top: 70px;
+    z-index: 15;
     font-size: 22px;
     font-variant: none;
-    text-shadow: 1px 1px #000, 0px 0px 10px #000, 8px 12px 9px #000;
+    text-shadow: 1px 1px #000, 0 0 10px #000, 8px 12px 9px #000;
   }
 
   .travelPage-map-image-environment-pointer,
-  .travelPage-map-image-environment:hover .travelPage-map-image-environment-pointer .travelPage-map-image-environment.highlight .travelPage-map-image-environment-pointer .travelPage-map-image-environment.current .travelPage-map-image-environment-pointer {
+  .travelPage-map-image-environment:focus {
     background-image: none !important;
   }
 
@@ -306,7 +307,8 @@
     outline: 4px solid #5e5e5e;
   }
 
-  .travelPage-map-image-environment:hover .travelPage-map-image-environment-pointer-image {
+  .travelPage-map-image-environment:hover .travelPage-map-image-environment-pointer-image,
+  .travelPage-map-image-environment:focus .travelPage-map-image-environment-pointer-image {
     border: 1px solid #f8d853;
     outline: 4px solid #fae255;
   }
@@ -316,13 +318,8 @@
   }
 
   .travelPage-map-image-environment.locked .travelPage-map-image-environment-status {
-    opacity: 0.5;
     z-index: 1;
-  }
-
-  .travelPage-map-image-environment-name {
-    top: 70px;
-    z-index: 15;
+    opacity: 0.5;
   }
 
   .travelPage-map-image-environment-star {
@@ -331,8 +328,7 @@
 
   .travelPage-map-image-environment-button {
     top: 100px;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
+    transform: scale(1.2);
   }
 
   .travelPage-regionMenu-environmentLink.mystery {
@@ -342,7 +338,7 @@
   }
 
   .travelPage-regionMenu-environmentLink-image {
-    opactiy: 0.4;
+    opacity: 0.4;
   }
 
   .travelPage-regionMenu-item[data-region="riftopia"] {
@@ -353,7 +349,8 @@
     display: block !important;
   }
 
-  .travelPage-regionMenu-regionLink:hover {
+  .travelPage-regionMenu-regionLink:hover,
+  .travelPage-regionMenu-regionLink:focus {
     cursor: unset;
   }
 
@@ -362,20 +359,18 @@
   }
 
   #mh-simple-travel-page .travelPage-regionMenu {
-    width: 100%;
-    background-color: transparent;
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: (1fr)[5];
     grid-template-columns: repeat(5, 1fr);
-    overflow: visible;
+    width: 100%;
     margin-bottom: 50px;
+    overflow: visible;
+    background-color: transparent;
   }
 
   #mh-simple-travel-page .travelPage-regionMenu-item {
+    margin: 1px;
     background-color: #e2e2e2;
     outline: 1px solid #4c71b4;
-    margin: 1px;
   }
 
   #mh-simple-travel-page .travelPage-regionMenu-item[data-region="gnawnia"],
@@ -391,8 +386,8 @@
   }
 
   #mh-simple-travel-page .travelPage-regionMenu-environments {
-    box-shadow: none;
     width: 150px;
+    box-shadow: none;
   }
 
   #mh-simple-travel-page .travelPage-regionMenu-item-contents {
@@ -403,8 +398,10 @@
     color: #4e6081;
   }
 
-  #mh-simple-travel-page .travelPage-regionMenu-environmentLink:hover {
-    background-color: #6383bf;
+  #mh-simple-travel-page .travelPage-regionMenu-environmentLink:hover,
+  #mh-simple-travel-page .travelPage-regionMenu-environmentLink:focus {
     color: #fff;
-  }`);
+    background-color: #6383bf;
+  }
+  `);
 })());
