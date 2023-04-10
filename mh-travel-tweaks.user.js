@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.2.3
+// @version      2.2.4
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -335,10 +335,6 @@
     display: inline-block;
     color: #9e9e9e;
     pointer-events: none;
-  }
-
-  .travelPage-regionMenu-environmentLink-image {
-    opacity: 0.4;
   }
 
   .travelPage-regionMenu-item[data-region="riftopia"] {
