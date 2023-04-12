@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.2.4
+// @version      2.2.5
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -218,7 +218,7 @@
    * Add the settings for Simple Travel.
    */
   const addSimpleTravelSetting = () => {
-    addSetting('Default to simple travel', 'simple-travel', false, 'Use the simple travel page by default.', {}, addSettingsTab());
+    addSetting('Travel Tweaks - Default to simple travel', 'simple-travel', false, 'Use the simple travel page by default.', {}, addSettingsTab());
   };
 
   onPageChange({ change: expandTravelRegions });
