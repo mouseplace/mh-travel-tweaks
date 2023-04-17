@@ -1,6 +1,6 @@
-// ==UserScript==
+ // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.2.5
+// @version      2.3.0
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -9,7 +9,7 @@
 // @icon         https://i.mouse.rip/mouse.png
 // @grant        none
 // @run-at       document-end
-// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.5.3/mousehunt-utils.js
+// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.6.0/mousehunt-utils.js
 // ==/UserScript==
 
 ((function () {
@@ -205,6 +205,53 @@
     }
   };
 
+  const addReminders = () => {
+    let reminderText = '';
+    let shouldDeactivate = true;
+
+    switch (getCurrentLocation()) {
+    case 'rift_valour':
+      if (user.quests?.QuestRiftValour?.is_fuel_enabled) {
+        reminderText = 'Champion\'s Fire is active.';
+      }
+      break;
+    case 'queso_river':
+    case 'queso_plains':
+    case 'queso_quarry':
+    case 'queso_geyser':
+      if (user.quests?.QuestQuesoCanyon?.is_wild_tonic_active) {
+        reminderText = 'Wild Tonic is active.';
+      }
+      break;
+    case 'floating_islands':
+      if (! user.quests?.QuestFloatingIslands?.hunting_atts?.is_fuel_enabled) {
+        reminderText = 'Bottled Wind is <strong>not</strong> active.';
+      }
+      break;
+    case 'foreword_farm':
+    case 'prologue_pond':
+    case 'table_of_contents':
+      if (user.quests?.QuestProloguePond?.is_fuel_enabled ||
+        user.quests?.QuestForewordFarm?.is_fuel_enabled ||
+        user.quests?.QuestTableOfContents?.is_fuel_enabled) {
+        reminderText = 'Condensed Creativity is active.';
+      } else {
+        shouldDeactivate = false;
+        reminderText = 'Condensed Creativity is <strong>not</strong> active.';
+      }
+      break;
+    }
+
+    if (reminderText) {
+      showHornMessage({
+        title: shouldDeactivate ? 'Don\'t waste your resources!' : 'Don\'t waste your hunts!',
+        text: reminderText,
+        button: 'Dismiss',
+        dismiss: 4000,
+      });
+    }
+  };
+
   /**
    * Add the tab & page for Simple Travel.
    */
@@ -219,6 +266,7 @@
    */
   const addSimpleTravelSetting = () => {
     addSetting('Travel Tweaks - Default to simple travel', 'simple-travel', false, 'Use the simple travel page by default.', {}, addSettingsTab());
+    addSetting('Travel Tweaks - Show travel reminders', 'travel-reminders', true, 'Show reminders about active resources.', {}, addSettingsTab());
   };
 
   onPageChange({ change: expandTravelRegions });
@@ -233,6 +281,10 @@
   if (window.location.search.includes('tab=simple-travel')) {
     // eslint-disable-next-line no-undef
     hg.utils.PageUtil.setPageTab('simple-travel');
+  }
+
+  if (getSetting('travel-reminders', true)) {
+    onEvent('travel_complete', addReminders);
   }
 
   addStyles(`.travelPage-map-spacer,
