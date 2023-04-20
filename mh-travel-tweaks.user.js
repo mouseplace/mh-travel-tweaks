@@ -1,6 +1,6 @@
- // ==UserScript==
+// ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.3.0
+// @version      2.3.3
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -219,12 +219,22 @@
     case 'queso_plains':
     case 'queso_quarry':
     case 'queso_geyser':
-      if (user.quests?.QuestQuesoCanyon?.is_wild_tonic_active) {
+      if (
+        user.quests?.QuestQuesoCanyon?.is_wild_tonic_active ||
+        user.quests?.QuestQuesoGeyser?.is_wild_tonic_enabled
+      ) {
         reminderText = 'Wild Tonic is active.';
       }
       break;
     case 'floating_islands':
-      if (! user.quests?.QuestFloatingIslands?.hunting_atts?.is_fuel_enabled) {
+      if (
+        ! user.quests?.QuestFloatingIslands?.hunting_site_atts?.is_fuel_enabled && // BW not active.
+        ! (
+          user.quests?.QuestFloatingIslands?.hunting_site_atts?.is_vault_island && // is SP.
+          user.quests.QuestFloatingIslands.hunting_site_atts.island_mod_panels[2].is_complete // is on 4th tile.
+        )
+      ) {
+        shouldDeactivate = false;
         reminderText = 'Bottled Wind is <strong>not</strong> active.';
       }
       break;
@@ -249,6 +259,14 @@
         button: 'Dismiss',
         dismiss: 4000,
       });
+
+      // temporary fix for the dismiss timing
+      setTimeout(() => {
+        const dismiss = document.querySelector('#mh-custom-horn-message .huntersHornView__messageAction');
+        if (dismiss) {
+          dismiss.click();
+        }
+      }, 3000);
     }
   };
 
@@ -284,7 +302,11 @@
   }
 
   if (getSetting('travel-reminders', true)) {
-    onEvent('travel_complete', addReminders);
+    onEvent('travel_complete', () => {
+      setTimeout(() => {
+        addReminders();
+      }, 250);
+    });
   }
 
   addStyles(`.travelPage-map-spacer,
@@ -450,6 +472,10 @@
   #mh-simple-travel-page .travelPage-regionMenu-environmentLink:focus {
     color: #fff;
     background-color: #6383bf;
+  }
+
+  .huntersHornView__messageContent strong {
+    font-weight: 900;
   }
   `);
 })());
