@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.3.4
+// @version      2.3.5
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -227,6 +227,10 @@
       }
       break;
     case 'floating_islands':
+      if ('launch_pad_island' === user.quests?.QuestFloatingIslands?.hunting_site_atts?.island_power_type) {
+        break;
+      }
+
       if (
         ! user.quests?.QuestFloatingIslands?.hunting_site_atts?.is_fuel_enabled && // BW not active.
         ! (
