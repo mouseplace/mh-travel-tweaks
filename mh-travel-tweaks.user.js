@@ -9,7 +9,7 @@
 // @icon         https://i.mouse.rip/mouse.png
 // @grant        none
 // @run-at       document-end
-// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.6.0/mousehunt-utils.js
+// @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.6.1/mousehunt-utils.js
 // ==/UserScript==
 
 ((function () {
@@ -363,32 +363,6 @@
     font-size: 22px;
     font-variant: none;
     text-shadow: 1px 1px #000, 0 0 10px #000, 8px 12px 9px #000;
-  }
-
-  .travelPage-map-image-environment-pointer,
-  .travelPage-map-image-environment:focus {
-    background-image: none !important;
-  }
-
-  .travelPage-map-image-environment-pointer-image {
-    border: 1px solid #9eb81a;
-    border-radius: 60%;
-    outline: 4px solid #afd134;
-  }
-
-  .travelPage-map-image-environment.locked .travelPage-map-image-environment-pointer-image {
-    border: 1px solid #717171;
-    outline: 4px solid #5e5e5e;
-  }
-
-  .travelPage-map-image-environment:hover .travelPage-map-image-environment-pointer-image,
-  .travelPage-map-image-environment:focus .travelPage-map-image-environment-pointer-image {
-    border: 1px solid #f8d853;
-    outline: 4px solid #fae255;
-  }
-
-  .travelPage-map-image-environment.locked .travelPage-map-image-environment-button {
-    opacity: 0.6;
   }
 
   .travelPage-map-image-environment.locked .travelPage-map-image-environment-status {
