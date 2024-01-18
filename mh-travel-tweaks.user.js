@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         🐭️ Mousehunt - Travel Tweaks
-// @version      2.3.7
+// @version      2.4.0
 // @description  Makes the travel page a bit better.
 // @license      MIT
 // @author       bradp
@@ -10,6 +10,7 @@
 // @grant        none
 // @run-at       document-end
 // @require      https://cdn.jsdelivr.net/npm/mousehunt-utils@1.6.4/mousehunt-utils.js
+// @require      https://cdn.jsdelivr.net/npm/script-migration@1.1.1
 // ==/UserScript==
 
 ((function () {
@@ -456,4 +457,6 @@
     font-weight: 900;
   }
   `);
+
+  migrateUserscript('🐭️ MouseHunt - Travel Tweaks', 'https://greasyfork.org/en/scripts/452232-mousehunt-travel-tweaks');
 })());
